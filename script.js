@@ -1427,6 +1427,21 @@ function seleccionarEstado(
     }
 
 
+    $$(".mood-card")
+        .forEach(
+            card => {
+
+                card.setAttribute(
+                    "aria-pressed",
+                    String(
+                        card === actual
+                    )
+                );
+
+            }
+        );
+
+
     estadoSeleccionadoEmoji.textContent =
         estado.emoji;
 
@@ -1465,6 +1480,30 @@ function seleccionarEstado(
         guardarLocal(
             "pausa5UltimoEstado",
             clave
+        );
+
+    }
+
+
+    // Feedback inmediato: en pantallas chicas lleva al usuario
+    // hasta el bloque "Tu Pausa5 está lista" con el botón de comenzar.
+    if (
+        mostrarMensaje &&
+        window.innerWidth <= 1100
+    ) {
+
+        setTimeout(
+            () => {
+
+                estadoSeleccionado.scrollIntoView({
+                    behavior:
+                        "smooth",
+                    block:
+                        "center"
+                });
+
+            },
+            120
         );
 
     }
@@ -1822,6 +1861,11 @@ function mostrarCountdown() {
         3;
 
 
+    countdown.classList.remove(
+        "countdown-go"
+    );
+
+
     countdown.textContent =
         String(numero);
 
@@ -1873,6 +1917,11 @@ function mostrarCountdown() {
 
                 countdown.textContent =
                     "¡Vamos!";
+
+
+                countdown.classList.add(
+                    "countdown-go"
+                );
 
 
                 textoCountdown.textContent =
@@ -4376,5 +4425,3 @@ function mostrarToast(
         );
 
 }
-
-//commit comment 
